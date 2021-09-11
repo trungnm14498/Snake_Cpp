@@ -38,6 +38,18 @@ void ve_ran(int z, int a[], int b[], int soluong)
 	}
 }
 
+void ve_ran_mau(int z, int a[], int b[], int soluong, int i)
+{	
+	SetColor(i);
+	gotoXY(a[0], b[0]);
+	cout << char(z);
+	for (int i = 1; i < soluong; i++)
+	{
+		gotoXY(a[i], b[i]);
+		cout << "o";
+	}
+}
+
 void di_chuyen_ran(int x, int y, int a[], int b[], int soluong)
 {
 	for (int i = soluong; i > 0; i--)
@@ -81,6 +93,13 @@ bool kt_ran_va_qua()
 void ve_qua()
 {
 	gotoXY(xqua, yqua);
+	cout << char(15);
+}
+
+void ve_qua_mau(int i)
+{
+	SetColor(i);
+	gotoXY(xqua, yqua);	
 	cout << char(15);
 }
 
