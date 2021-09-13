@@ -13,6 +13,7 @@ void play3();
 void play4();
 void play5();
 void play6();
+void play7();
 void tao_ran3();
 void tao_qua();
 void tao_qua2();
@@ -21,6 +22,7 @@ void ran_an_qua();
 void ran_an_qua2();
 void ran_an_qua3();
 void ran_an_qua5();
+void ran_an_qua7(int &check);
 bool game_over();
 bool game_over2();
 bool game_over3();
@@ -30,6 +32,7 @@ void thong_bao3();
 void thong_bao4();
 void thong_bao5();
 void thong_bao6();
+void thong_bao7();
 
 void main()
 {
@@ -45,16 +48,17 @@ void menu()
 	while (kt_menu)
 	{
 		cout << "\n\t\t\t\t\t    *** SNAKE GAME MENU ***" << endl;
-		cout << "1. Box" << endl;
-		cout << "2. Box But More Walls" << endl;
-		cout << "3. Solo PvP" << endl;
-		cout << "4. Classic" << endl;
-		cout << "5. Yin Yang" << endl;
-		cout << "6. Color Snake" << endl;
-		cout << "0. Exit" << endl;
+		cout << " 1. Box" << endl;
+		cout << " 2. Box But More Walls" << endl;
+		cout << " 3. Solo PvP" << endl;
+		cout << " 4. Classic" << endl;
+		cout << " 5. Yin Yang" << endl;
+		cout << " 6. Color Snake" << endl;
+		cout << " 7. Twins Snake" << endl;
+		cout << " 0. Exit" << endl;
 		int choice = 0;
 		choose: 
-			cout << "\nChoose the Game Mode or Exit: "; cin >> choice;
+			cout << "\n Choose the Game Mode or Exit: "; cin >> choice;
 
 		switch (choice)
 		{
@@ -86,6 +90,11 @@ void menu()
 			diem_cao = 0;
 			system("cls");
 			play6();
+			break;
+		case 7:
+			diem_cao = 0;
+			system("cls");
+			play7();
 			break;
 		case 0:
 			exit(0);
@@ -793,6 +802,108 @@ void play6()
 	thong_bao6();
 }
 
+void play7()
+{
+	//BUILD GAME
+	//----- setting -----
+	ve_tuong1();
+	tao_ran();
+	ve_ran(3, toa_do_x, toa_do_y, sl);
+	tao_qua();
+	int x = toa_do_x[0];
+	int y = toa_do_y[0];
+	int check = 2;		// 0: di xuong
+						// 1: di len
+						// 2: di sang phai
+						// 3: di sang trai
+
+	//-----play -----
+	while (true)
+	{
+		//----- clear old data -----
+		gotoXY(toa_do_x[sl], toa_do_y[sl]);
+		cout << " ";
+		//----- print -----
+		x = toa_do_x[0];
+		y = toa_do_y[0];
+		ve_ran(3, toa_do_x, toa_do_y, sl);
+		ve_qua();
+		//------ controls -----
+		if (_kbhit())
+		{
+			char c = _getch();
+			if (c == -32)
+			{
+				char c = _getch();
+				if (c == 80 && check != 1)
+				{
+					check = 0;
+				}
+				else if (c == 72 && check != 0)
+				{
+					check = 1;
+				}
+				else if (c == 77 && check != 3)
+				{
+					check = 2;
+				}
+				else if (c == 75 && check != 2)
+				{
+					check = 3;
+				}
+			}
+			else if (c == 27)
+			{
+				gotoXY(0, 29);
+				cout << "GAME PAUSED - Press any key to continue the game!";
+				_getch();
+				gotoXY(0, 29);
+				cout << "                                                 ";
+			}
+		}
+		//------ move -----
+		if (check == 0)
+		{
+			y++;
+		}
+		else if (check == 1)
+		{
+			y--;
+		}
+		else if (check == 2)
+		{
+			x++;
+		}
+		else if (check == 3)
+		{
+			x--;
+		}
+		if (game_over())
+		{
+			SetColor(7);
+			break;
+		}
+		//------ handle ------
+		di_chuyen_ran(x, y, toa_do_x, toa_do_y, sl);
+		ran_an_qua7(check);
+		doi_mau();
+		gotoXY(0, 0);
+		cout << "Score: " << diem << endl;
+		cout << "MaxS: " << diem_cao;
+		gotoXY(50, 28);
+		cout << "[***] TWINS MODE [***]";
+		//------ speed -----
+		toc_do(speed);
+		if (check == 0 || check == 1)	// Xu ly khi ran di len hoac xuong bi nhanh hon luc di ngang
+		{
+			speed += 30;
+		}
+		Sleep(speed);
+	}
+	//------ Notifications ------
+	thong_bao7();
+}
+
 void ve_tuong1()
 {
 	for (int x = 9; x <= 111;x++)
@@ -1003,7 +1114,7 @@ void tao_qua2()
 
 void ran_an_qua()
 {
-	if (kt_ran_an_qua()==1)
+	if (kt_ran_an_qua() == 1)
 	{
 		sl++;
 		tao_qua();
@@ -1056,6 +1167,38 @@ void ran_an_qua5()
 		sl++;
 		sl2++;
 		tao_qua();
+		ve_qua();
+		diem++;
+	}
+	if (diem > diem_cao)
+	{
+		diem_cao = diem;
+	}
+}
+
+void ran_an_qua7(int &check)
+{
+	if (kt_ran_an_qua() == 1)
+	{
+		sl++;		
+		tao_qua();
+		for (int i = 0; i < sl/2; i++)
+		{
+			swap(toa_do_x[i], toa_do_x[sl - 1 - i]);
+			swap(toa_do_y[i], toa_do_y[sl - 1 - i]);
+		}
+		/*for (int i = 0; i < sl;i++)
+		{
+			cout << "(" << toa_do_x[i] << "," << toa_do_y[i] << ")" << endl;
+			
+		}
+		cout << "(" << xqua << "," << yqua << ")" << endl;
+		
+		cout << kt_huong();
+		system("pause");*/
+		int huong = kt_huong();
+		check = huong;
+		//check = 3;
 		ve_qua();
 		diem++;
 	}
@@ -1277,6 +1420,40 @@ void thong_bao6()
 		case 1:
 			system("cls");
 			play6();
+		case 0:
+			system("cls");
+			menu();
+		}
+	}
+}
+
+void thong_bao7()
+{
+	bool kt_menu2 = true;
+	if (game_over())
+	{
+		system("cls");
+		gotoXY(55, 10);
+		cout << "GAME OVER";
+		gotoXY(55, 11);
+		cout << "SCORE: " << diem;
+		gotoXY(55, 12);
+		cout << "MAX SCORE: " << diem_cao;
+		gotoXY(55, 14);
+		cout << "1. New Game";
+		gotoXY(55, 15);
+		cout << "0. Exit to Menu" << endl;
+		int choice = 0;
+		gotoXY(55, 16);
+		cout << "Your choice: ";
+		cin >> choice;
+		diem = 0;
+		sl = 4;
+		switch (choice)
+		{
+		case 1:
+			system("cls");
+			play7();
 		case 0:
 			system("cls");
 			menu();

@@ -39,7 +39,7 @@ void ve_ran(int z, int a[], int b[], int soluong)
 }
 
 void ve_ran_mau(int z, int a[], int b[], int soluong, int i)
-{	
+{
 	SetColor(i);
 	gotoXY(a[0], b[0]);
 	cout << char(z);
@@ -99,7 +99,7 @@ void ve_qua()
 void ve_qua_mau(int i)
 {
 	SetColor(i);
-	gotoXY(xqua, yqua);	
+	gotoXY(xqua, yqua);
 	cout << char(15);
 }
 
@@ -116,7 +116,7 @@ int kt_ran_an_qua()
 	return 0;
 }
 
-int toc_do(int &speed)
+int toc_do(int& speed)
 {
 	int lvl = diem / 10;
 	if (lvl == 0)
@@ -153,4 +153,15 @@ void doi_mau()
 	{
 		SetColor(12);
 	}
+}
+
+int kt_huong() {
+	if (toa_do_x[1] == toa_do_x[0] && toa_do_y[1] < toa_do_y[0])
+		return 0;
+	if (toa_do_x[1] == toa_do_x[0] && toa_do_y[1] > toa_do_y[0])
+		return 1;
+	if (toa_do_x[1] < toa_do_x[0] && toa_do_y[1] == toa_do_y[0])
+		return 2;
+	if (toa_do_x[1] > toa_do_x[0] && toa_do_y[1] == toa_do_y[0])
+		return 3;
 }
