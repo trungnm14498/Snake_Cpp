@@ -1360,7 +1360,7 @@ void thong_bao4()
 void thong_bao5()
 {
 	bool kt_menu2 = true;
-	if (game_over())
+	if (game_over3())
 	{
 		system("cls");
 		gotoXY(55, 10);
