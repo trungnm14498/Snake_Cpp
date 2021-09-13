@@ -5,6 +5,8 @@ Game rắn với 4 chế độ
 2. Hộp và thêm tường
 3. 2 người chơi
 4. Cổ điển
+5. Đối xứng
+6. Màu sắc
 
 Một số tính năng có trong game:
 1. Menu.
