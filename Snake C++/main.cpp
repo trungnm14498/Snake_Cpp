@@ -704,7 +704,9 @@ void play6()
 	tao_qua();
 	int x = toa_do_x[0];
 	int y = toa_do_y[0];
-	int mau = 7;
+	int mau1 = 7;
+	int mau2 = rand() % (15 - 2 + 1) + 2;
+	int mau3 = 7;
 	int check = 2;		// 0: di xuong
 						// 1: di len
 						// 2: di sang phai
@@ -717,8 +719,8 @@ void play6()
 		gotoXY(toa_do_x[sl], toa_do_y[sl]);
 		cout << " ";
 		//----- print -----
-		ve_ran_mau(3, toa_do_x, toa_do_y, sl, mau);
-		ve_qua_mau(mau);
+		ve_ran_mau(3, toa_do_x, toa_do_y, sl, mau1);
+		ve_qua_mau(mau2);
 		//------ controls -----
 		if (_kbhit())
 		{
@@ -779,7 +781,8 @@ void play6()
 		di_chuyen_ran(x, y, toa_do_x, toa_do_y, sl);
 		if (kt_ran_an_qua() == 1)
 		{
-			mau = rand() % (15 - 2 + 1) + 2;
+			mau1 = mau2;
+			mau2 = rand() % (15 - 2 + 1) + 2;		
 		}
 		ran_an_qua();
 		
@@ -1414,7 +1417,6 @@ void thong_bao6()
 		cin >> choice;
 		diem = 0;
 		sl = 4;
-		sl2 = 4;
 		switch (choice)
 		{
 		case 1:
