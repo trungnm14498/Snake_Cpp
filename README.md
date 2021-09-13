@@ -7,7 +7,7 @@ Game rắn với 4 chế độ
 4. Cổ điển
 5. Đối xứng
 6. Màu sắc
-7. Hai 
+7. Hai đầu
 
 Một số tính năng có trong game:
 1. Menu.
